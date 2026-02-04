@@ -212,6 +212,11 @@ function App() {
 function RightSidebar({ onUserClick }: { onUserClick: (user: User) => void }) {
   const suggestedUsers = users.slice(1, 5);
   const trendingTopics = ['#IELTS', '#Marketing', '#Finance', '#Leadership', '#Design'];
+  const learningPath = [
+    { title: 'Build a study habit', progress: 60 },
+    { title: 'Master core concepts', progress: 35 },
+    { title: 'Apply in real projects', progress: 10 },
+  ];
 
   return (
     <div className="space-y-8">
@@ -269,6 +274,33 @@ function RightSidebar({ onUserClick }: { onUserClick: (user: User) => void }) {
         </p>
         <button className="w-full py-2 bg-white text-purple-600 rounded-full text-sm font-medium hover:bg-purple-50 transition-colors">
           Start Challenge
+        </button>
+      </div>
+
+      {/* Learning Path */}
+      <div className="rounded-2xl border border-[#E5E7EB] bg-white p-5">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-sm font-semibold text-[#0B0D10]">Your Learning Path</h3>
+          <span className="text-xs font-medium text-purple-600">Week 2</span>
+        </div>
+        <div className="space-y-4">
+          {learningPath.map((step) => (
+            <div key={step.title}>
+              <div className="flex items-center justify-between text-xs text-gray-500 mb-2">
+                <span>{step.title}</span>
+                <span>{step.progress}%</span>
+              </div>
+              <div className="h-2 w-full rounded-full bg-gray-100">
+                <div
+                  className="h-2 rounded-full bg-purple-600"
+                  style={{ width: `${step.progress}%` }}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+        <button className="mt-5 w-full rounded-full border border-purple-200 bg-purple-50 py-2 text-xs font-semibold text-purple-700 hover:bg-purple-100 transition-colors">
+          View full plan
         </button>
       </div>
 
