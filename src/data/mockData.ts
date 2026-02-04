@@ -1,4 +1,4 @@
-import type { User, Post, Story, Topic, Comment } from '@/types';
+import type { User, Post, Story, Topic, Comment, PracticeQuestion } from '@/types';
 
 // AI-Generated Instructors
 export const users: User[] = [
@@ -134,6 +134,18 @@ When you truly understand your customer, marketing becomes a conversation, not a
     isSaved: false,
     createdAt: '3 hours ago',
     tags: ['marketing', 'designthinking', 'innovation'],
+    quiz: {
+      id: 'quiz-1',
+      question: 'Which line best reflects the idea in this post?',
+      options: [
+        { id: 'q1-a', label: 'A', text: 'Marketing is about persuasion through discounts.' },
+        { id: 'q1-b', label: 'B', text: 'Marketing starts with solving a real customer pain.' },
+        { id: 'q1-c', label: 'C', text: 'Marketing works only with large budgets.' },
+      ],
+      correctOptionId: 'q1-b',
+      explanation: 'The post emphasizes solving real customer problems before pitching.',
+      commentPrompt: 'Explain your answer: What customer pain have you seen most often?',
+    },
   },
   {
     id: '2',
@@ -155,6 +167,18 @@ The best time to start was yesterday. The second best time is today.`,
     isSaved: false,
     createdAt: '5 hours ago',
     tags: ['investing', 'personalfinance', 'wealth'],
+    quiz: {
+      id: 'quiz-2',
+      question: 'What makes compounding powerful in this example?',
+      options: [
+        { id: 'q2-a', label: 'A', text: 'Starting early and staying consistent.' },
+        { id: 'q2-b', label: 'B', text: 'Timing the market weekly.' },
+        { id: 'q2-c', label: 'C', text: 'Investing only in high-risk assets.' },
+      ],
+      correctOptionId: 'q2-a',
+      explanation: 'Consistent contributions over time let compound growth do the heavy lifting.',
+      commentPrompt: 'Explain your answer: How would you stay consistent?',
+    },
   },
   {
     id: '3',
@@ -290,6 +314,52 @@ Invest in yourself. It's the best investment you'll ever make.`,
     isSaved: false,
     createdAt: '16 hours ago',
     tags: ['valueinvesting', 'learning', 'wisdom'],
+  },
+];
+
+// Practice Questions (Swipeable Cards)
+export const practiceQuestions: PracticeQuestion[] = [
+  {
+    id: 'practice-1',
+    topic: 'IELTS',
+    title: 'Quick Check · IELTS Speaking',
+    question: 'What is the benefit of the 3-second pause before answering?',
+    options: [
+      { id: 'p1-a', label: 'A', text: 'It helps you sound more confident and organized.' },
+      { id: 'p1-b', label: 'B', text: 'It makes answers shorter automatically.' },
+      { id: 'p1-c', label: 'C', text: 'It guarantees a perfect score.' },
+    ],
+    correctOptionId: 'p1-a',
+    explanation: 'A short pause reduces filler words and lets you organize your response.',
+    image: '/images/topics/ielts.jpg',
+  },
+  {
+    id: 'practice-2',
+    topic: 'Design',
+    title: 'Swipe Practice · UX Basics',
+    question: 'Which principle best matches “good design is invisible”?',
+    options: [
+      { id: 'p2-a', label: 'A', text: 'Focus on user goals before visuals.' },
+      { id: 'p2-b', label: 'B', text: 'Add more UI decoration for engagement.' },
+      { id: 'p2-c', label: 'C', text: 'Use every feature to show capability.' },
+    ],
+    correctOptionId: 'p2-a',
+    explanation: 'If users reach their goals effortlessly, the design stays out of the way.',
+    image: '/images/topics/design.jpg',
+  },
+  {
+    id: 'practice-3',
+    topic: 'Finance',
+    title: 'Quick Check · Investing',
+    question: 'What is the core message of “Rule #1: Never lose money”?',
+    options: [
+      { id: 'p3-a', label: 'A', text: 'Prioritize capital preservation before growth.' },
+      { id: 'p3-b', label: 'B', text: 'Avoid all investments entirely.' },
+      { id: 'p3-c', label: 'C', text: 'Trade daily for higher returns.' },
+    ],
+    correctOptionId: 'p3-a',
+    explanation: 'Risk management comes first so you can stay in the game long term.',
+    image: '/images/topics/finance.jpg',
   },
 ];
 

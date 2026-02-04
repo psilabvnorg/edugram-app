@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { Post as PostType, User, Comment } from '@/types';
-import { Heart, MessageCircle, Bookmark, Share2, MoreHorizontal, Verified, Send } from 'lucide-react';
+import { Heart, MessageCircle, Bookmark, Share2, MoreHorizontal, Verified, Send, CheckCircle2, XCircle } from 'lucide-react';
 import { formatNumber } from '@/data/mockData';
 import { Input } from '@/components/ui/input';
 
@@ -16,6 +16,7 @@ export function Post({ post, onUserClick }: PostProps) {
   const [showComments, setShowComments] = useState(false);
   const [comments, setComments] = useState<Comment[]>(post.comments);
   const [newComment, setNewComment] = useState('');
+  const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
 
   const handleLike = () => {
     if (isLiked) {
@@ -162,6 +163,52 @@ export function Post({ post, onUserClick }: PostProps) {
           </p>
         </div>
 
+        {post.quiz && (
+          <div className="mb-4 rounded-2xl border border-[#E5E7EB] bg-[#F9FAFB] p-4">
+            <p className="text-xs font-semibold uppercase tracking-wide text-purple-600">Quick check</p>
+            <p className="mt-1 text-sm font-semibold text-[#0B0D10]">{post.quiz.question}</p>
+            <div className="mt-3 space-y-2">
+              {post.quiz.options.map((option) => {
+                const isSelected = selectedOptionId === option.id;
+                return (
+                  <button
+                    key={option.id}
+                    onClick={() => setSelectedOptionId(option.id)}
+                    className={`flex w-full items-center gap-2 rounded-xl border px-3 py-2 text-left text-xs font-medium transition-colors ${
+                      isSelected
+                        ? 'border-purple-500 bg-purple-50 text-purple-700'
+                        : 'border-transparent bg-white text-gray-600 hover:border-purple-200'
+                    }`}
+                  >
+                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-100 text-[10px] font-semibold text-gray-600">
+                      {option.label}
+                    </span>
+                    <span className="flex-1">{option.text}</span>
+                  </button>
+                );
+              })}
+            </div>
+            {selectedOptionId && (
+              <div className="mt-3 flex items-start gap-2 rounded-xl bg-white p-3 text-xs text-gray-600">
+                {selectedOptionId === post.quiz.correctOptionId ? (
+                  <CheckCircle2 className="mt-0.5 h-4 w-4 text-emerald-500" />
+                ) : (
+                  <XCircle className="mt-0.5 h-4 w-4 text-rose-500" />
+                )}
+                <div>
+                  <p className="font-semibold text-[#0B0D10]">
+                    {selectedOptionId === post.quiz.correctOptionId ? 'Correct!' : 'Not quite yet.'}
+                  </p>
+                  <p className="text-gray-500">{post.quiz.explanation}</p>
+                </div>
+              </div>
+            )}
+            <div className="mt-3 text-xs text-gray-500">
+              {post.quiz.commentPrompt}
+            </div>
+          </div>
+        )}
+
         {/* Tags */}
         {post.tags && post.tags.length > 0 && (
           <div className="flex flex-wrap gap-2 mb-3">
@@ -234,7 +281,7 @@ export function Post({ post, onUserClick }: PostProps) {
             <form onSubmit={handleAddComment} className="flex gap-3">
               <Input
                 type="text"
-                placeholder="Add a comment..."
+                placeholder={post.quiz ? post.quiz.commentPrompt : 'Add a comment...'}
                 value={newComment}
                 onChange={(e) => setNewComment(e.target.value)}
                 className="flex-1 bg-gray-50 border-0 rounded-full px-4 text-sm focus:ring-2 focus:ring-purple-500"

@@ -29,6 +29,7 @@ export interface Post {
   isSaved?: boolean;
   createdAt: string;
   tags?: string[];
+  quiz?: PostQuiz;
 }
 
 export interface Comment {
@@ -38,6 +39,32 @@ export interface Comment {
   content: string;
   likes: number;
   createdAt: string;
+}
+
+export interface QuizOption {
+  id: string;
+  label: string;
+  text: string;
+}
+
+export interface PostQuiz {
+  id: string;
+  question: string;
+  options: QuizOption[];
+  correctOptionId: string;
+  explanation: string;
+  commentPrompt: string;
+}
+
+export interface PracticeQuestion {
+  id: string;
+  topic: Category;
+  title: string;
+  question: string;
+  options: QuizOption[];
+  correctOptionId: string;
+  explanation: string;
+  image: string;
 }
 
 export interface Story {
