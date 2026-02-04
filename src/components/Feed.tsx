@@ -1,7 +1,8 @@
 import type { Category } from '@/types';
-import { posts as allPosts } from '@/data/mockData';
+import { posts as allPosts, practiceQuestions } from '@/data/mockData';
 import { Post } from './Post';
 import type { User } from '@/types';
+import { PracticeCarousel } from './PracticeCarousel';
 
 interface FeedProps {
   category: Category;
