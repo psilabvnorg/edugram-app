@@ -79,8 +79,6 @@ export function Feed({ category, onUserClick }: FeedProps) {
         </div>
       </section>
 
-      <PracticeCarousel questions={practiceQuestions} />
-
       {/* Category Header */}
       {category !== 'All' && (
         <div className="flex items-center gap-3 mb-6">
